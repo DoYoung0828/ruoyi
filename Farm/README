@@ -4,3 +4,4 @@
 前端package.json中新增serve/build，新增一个project.js和一个项目管理页面
 src/api/funds/project.js
 src/views/funds/project/index.vue
+4、同步sql,在sql文件夹下sql2
