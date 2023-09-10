@@ -2,3 +2,5 @@
 2、前端启动：npm run build/npm run serve(二选一都可以)
 3、改动点[20230910]：
 前端package.json中新增serve/build，新增一个project.js和一个项目管理页面
+src/api/funds/project.js
+src/views/funds/project/index.vue
