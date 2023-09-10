@@ -1,0 +1,4 @@
+1、启动注意本地mysql/redis账号密码
+2、前端启动：npm run build/npm run serve(二选一都可以)
+3、改动点[20230910]：
+前端package.json中新增serve/build，新增一个project.js和一个项目管理页面
