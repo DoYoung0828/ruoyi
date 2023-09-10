@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.system.mapper.FundsProjectMapper">
+    
+    <resultMap type="FundsProject" id="FundsProjectResult">
+        <result property="id"    column="id"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="projectNum"    column="project_num"    />
+        <result property="customerName"    column="customer_name"    />
+        <result property="projectStatus"    column="project_status"    />
+        <result property="contractAmount"    column="contract_amount"    />
+        <result property="startDate"    column="start_date"    />
+        <result property="dept"    column="dept"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectFundsProjectVo">
+        select id, project_name, project_num, customer_name, project_status, contract_amount, start_date, dept, create_by, create_time, update_by, update_time, remark from funds_project
+    </sql>
+
+    <select id="selectFundsProjectList" parameterType="FundsProject" resultMap="FundsProjectResult">
+        <include refid="selectFundsProjectVo"/>
+        <where>  
+            <if test="projectName != null  and projectName != ''"> and project_name like concat('%', #{projectName}, '%')</if>
+            <if test="projectNum != null  and projectNum != ''"> and project_num = #{projectNum}</if>
+            <if test="customerName != null  and customerName != ''"> and customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="projectStatus != null  and projectStatus != ''"> and project_status = #{projectStatus}</if>
+            <if test="contractAmount != null "> and contract_amount = #{contractAmount}</if>
+            <if test="startDate != null "> and start_date = #{startDate}</if>
+            <if test="dept != null  and dept != ''"> and dept = #{dept}</if>
+        </where>
+    </select>
+    
+    <select id="selectFundsProjectById" parameterType="Long" resultMap="FundsProjectResult">
+        <include refid="selectFundsProjectVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFundsProject" parameterType="FundsProject" useGeneratedKeys="true" keyProperty="id">
+        insert into funds_project
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectName != null">project_name,</if>
+            <if test="projectNum != null">project_num,</if>
+            <if test="customerName != null">customer_name,</if>
+            <if test="projectStatus != null">project_status,</if>
+            <if test="contractAmount != null">contract_amount,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="dept != null">dept,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectName != null">#{projectName},</if>
+            <if test="projectNum != null">#{projectNum},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="projectStatus != null">#{projectStatus},</if>
+            <if test="contractAmount != null">#{contractAmount},</if>
+            <if test="startDate != null">#{startDate},</if>
+            <if test="dept != null">#{dept},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFundsProject" parameterType="FundsProject">
+        update funds_project
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="projectNum != null">project_num = #{projectNum},</if>
+            <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="projectStatus != null">project_status = #{projectStatus},</if>
+            <if test="contractAmount != null">contract_amount = #{contractAmount},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="dept != null">dept = #{dept},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFundsProjectById" parameterType="Long">
+        delete from funds_project where id = #{id}
+    </delete>
+
+    <delete id="deleteFundsProjectByIds" parameterType="String">
+        delete from funds_project where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
